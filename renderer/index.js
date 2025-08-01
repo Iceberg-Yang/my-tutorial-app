@@ -1,11 +1,23 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const tutorialList = document.getElementById('tutorial-list');
+    const homeView = document.getElementById('home-view');
     const tutorialView = document.getElementById('tutorial-view');
     const checkForUpdatesBtn = document.getElementById('check-for-updates');
+    const homeButton = document.getElementById('home-button');
     const updateMessage = document.getElementById('update-message');
 
     let currentTutorial = '';
+
+    function showHomeView() {
+        homeView.style.display = 'block';
+        tutorialView.style.display = 'none';
+    }
+
+    function showTutorialView() {
+        homeView.style.display = 'none';
+        tutorialView.style.display = 'block';
+    }
 
     async function loadTutorials() {
         const tutorials = await window.electronAPI.getTutorials();
@@ -24,19 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadTutorialContent(tutorialName) {
         const content = await window.electronAPI.getTutorialContent(tutorialName);
         if (content) {
+            showTutorialView();
             tutorialView.innerHTML = marked.parse(content);
             document.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightBlock(block);
             });
 
             const openFolderBtn = document.createElement('button');
-            openFolderBtn.textContent = 'Open Code Folder';
+            openFolderBtn.textContent = '打开代码文件夹'; // Changed to Chinese
             openFolderBtn.addEventListener('click', () => {
                 window.electronAPI.openTutorialFolder(currentTutorial);
             });
             tutorialView.prepend(openFolderBtn);
         }
     }
+
+    homeButton.addEventListener('click', showHomeView);
 
     checkForUpdatesBtn.addEventListener('click', () => {
         window.electronAPI.checkForUpdates();
@@ -46,5 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMessage.textContent = message;
     });
 
+    // Initial setup
     loadTutorials();
+    showHomeView();
 });

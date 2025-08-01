@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">2048</h1>
+        <div class="score-container">
+            <div class="score-title">分数</div>
+            <div class="score">0</div>
+        </div>
+        <div class="game-intro">
+            <p>使用 <strong>方向键</strong> 移动方块。合并相同数字的方块，得到 <strong>2048 方块!</strong></p>
+        </div>
+        <div class="game-container">
+            <div class="grid-container">
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+            </div>
+            <div class="tile-container">
+                <!-- Tiles will be inserted here -->
+            </div>
+        </div>
+        <button class="retry-button">新游戏</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

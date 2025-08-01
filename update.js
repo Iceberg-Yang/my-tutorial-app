@@ -44,8 +44,9 @@ async function checkForUpdates(window) {
                     writer.on('finish', () => {
                         window.webContents.send('update-message', 'Update downloaded. Extracting...');
                         fs.rmdirSync(RESOURCES_DIR, { recursive: true });
+                        fs.mkdirSync(RESOURCES_DIR);
                         const zip = new AdmZip(zipPath);
-                        zip.extractAllTo(__dirname, true);
+                        zip.extractAllTo(RESOURCES_DIR, true);
                         fs.unlinkSync(zipPath);
                         window.webContents.send('update-message', 'Update complete! Please restart the application.');
                     });

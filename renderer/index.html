@@ -10,13 +10,42 @@
 <body>
     <div id="container">
         <div id="sidebar">
-            <h1>Tutorials</h1>
+            <button id="home-button">返回主页</button>
+            <h1>教程列表</h1>
             <ul id="tutorial-list"></ul>
-            <button id="check-for-updates">Check for Updates</button>
+            <button id="check-for-updates">检查更新</button>
             <div id="update-message"></div>
         </div>
         <div id="content">
-            <div id="tutorial-view"></div>
+            <div id="home-view">
+                <div class="hero-section">
+                    <!-- 图片位置 1: 替换这里的 src -->
+                    <img src="placeholder.png" alt="摩尔学院横幅" class="hero-image">
+                    <h1>欢迎来到摩尔学院</h1>
+                    <p>您的专属技术成长伙伴</p>
+                </div>
+                <div class="features-section">
+                    <div class="feature-item">
+                        <!-- 图片位置 2: 替换这里的 src -->
+                        <img src="placeholder.png" alt="课程特色1">
+                        <h2>互动式教程</h2>
+                        <p>通过动手实践，掌握核心知识。</p>
+                    </div>
+                    <div class="feature-item">
+                        <!-- 图片位置 3: 替换这里的 src -->
+                        <img src="placeholder.png" alt="课程特色2">
+                        <h2>离线学习</h2>
+                        <p>所有课程均可离线访问，随时随地学习。</p>
+                    </div>
+                    <div class="feature-item">
+                        <!-- 图片位置 4: 替换这里的 src -->
+                        <img src="placeholder.png" alt="课程特色3">
+                        <h2>持续更新</h2>
+                        <p>课程内容与时俱进，一键同步最新知识。</p>
+                    </div>
+                </div>
+            </div>
+            <div id="tutorial-view" style="display: none;"></div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>

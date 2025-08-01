@@ -1,10 +1,13 @@
 
+/* General Styles */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     height: 100vh;
     overflow: hidden;
+    background-color: #ffffff; /* White background for the whole app */
+    color: #333333; /* Dark text color */
 }
 
 #container {
@@ -12,17 +15,21 @@ body, html {
     height: 100%;
 }
 
+/* Sidebar Styles */
 #sidebar {
-    width: 200px;
-    background-color: #f0f0f0;
+    width: 220px;
+    background-color: #f0f0f0; /* Light grey sidebar */
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #dddddd;
 }
 
 #sidebar h1 {
+    font-size: 1.2em;
     margin-top: 0;
+    color: #ff6600; /* Orange accent */
 }
 
 #tutorial-list {
@@ -33,36 +40,157 @@ body, html {
 }
 
 #tutorial-list li {
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #dddddd;
+    transition: background-color 0.2s;
 }
 
 #tutorial-list li:hover {
     background-color: #e0e0e0;
 }
 
-#check-for-updates {
+#home-button, #check-for-updates {
     margin-top: 20px;
-    padding: 10px;
+    padding: 12px;
+    border: none;
+    background-color: #ff6600; /* Orange button */
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+#home-button {
+    background-color: #6c757d; /* Grey for home button */
+    margin-bottom: 20px; /* Space between home and list */
+}
+
+#home-button:hover, #check-for-updates:hover {
+    background-color: #e65c00; /* Darker orange on hover */
+}
+
+#home-button:hover {
+    background-color: #5a6268;
+}
+
+#update-message {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Content Area Styles */
+#content {
+    flex-grow: 1;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+/* Home View Styles */
+#home-view {
+    padding: 40px;
+    text-align: center;
+    color: #333;
+}
+
+.hero-section {
+    margin-bottom: 60px;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 600px;
+    height: 250px; /* Adjust as needed */
+    background-color: #e9ecef; /* Light placeholder color */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    object-fit: cover; /* Ensures the image covers the area */
+    border: 1px solid #dee2e6;
+}
+
+#home-view h1 {
+    font-size: 2.5em;
+    color: #ff6600;
+    margin-bottom: 10px;
+}
+
+#home-view p {
+    font-size: 1.2em;
+    color: #6c757d;
+}
+
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.feature-item {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    border: 1px solid #dee2e6;
+}
+
+.feature-item img {
+    width: 100%;
+    height: 150px; /* Adjust as needed */
+    background-color: #e9ecef; /* Light placeholder color */
+    border-radius: 4px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.feature-item h2 {
+    font-size: 1.5em;
+    color: #ff6600;
+}
+
+/* Tutorial View Styles */
+#tutorial-view {
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+#tutorial-view h1, #tutorial-view h2, #tutorial-view h3 {
+    color: #333;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 5px;
+}
+
+#tutorial-view pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    color: #333;
+}
+
+#tutorial-view code {
+    font-family: "Courier New", Courier, monospace;
+    color: #c7254e; /* A common color for code text */
+}
+
+#tutorial-view a {
+    color: #007bff;
+}
+
+#tutorial-view button {
+    margin-bottom: 20px;
+    padding: 10px 15px;
     border: none;
     background-color: #007bff;
     color: white;
     cursor: pointer;
+    border-radius: 4px;
 }
 
-#check-for-updates:hover {
+#tutorial-view button:hover {
     background-color: #0056b3;
-}
-
-#update-message {
-    margin-top: 10px;
-    font-size: 0.9em;
-}
-
-#content {
-    flex-grow: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
 }

@@ -1,7 +1,8 @@
 
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { checkForUpdates } = require('./update');
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -23,6 +24,7 @@ function createWindow () {
 
 app.whenReady().then(() => {
   createWindow();
+  Menu.setApplicationMenu(null);
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
