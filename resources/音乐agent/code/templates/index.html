@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情感音乐生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            color: #1f2937;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .main-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 2rem;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .emotion-btn {
+            padding: 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .emotion-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .emotion-btn .desc {
+            font-size: 0.875rem;
+            font-weight: normal;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .happy-btn {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+        }
+        
+        .happy-btn:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+        }
+        
+        .sad-btn {
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        }
+        
+        .sad-btn:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        
+        .excited-btn {
+            background: linear-gradient(135deg, #f87171 0%, #ec4899 100%);
+        }
+        
+        .excited-btn:hover {
+            background: linear-gradient(135deg, #ef4444 0%, #db2777 100%);
+        }
+        
+        .calm-btn {
+            background: linear-gradient(135deg, #34d399 0%, #14b8a6 100%);
+        }
+        
+        .calm-btn:hover {
+            background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+        }
+        
+        .status {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .status.show {
+            display: block;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        
+        .spinner {
+            width: 2rem;
+            height: 2rem;
+            border: 2px solid #e5e7eb;
+            border-top: 2px solid #4f46e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result {
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .success-alert {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            color: #15803d;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .success-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .success-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #22c55e;
+            margin-right: 0.75rem;
+        }
+        
+        .audio-section {
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .audio-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .audio-player {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 1rem;
+        }
+        
+        .audio-tip {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-card">
+            <h1 class="title">🎵 情感音乐生成器</h1>
+            <p class="subtitle">选择一种情感，让AI为您创作专属音乐</p>
+            
+            <div class="emotion-grid">
+                <button onclick="generateMusic('happy')" class="emotion-btn happy-btn">
+                    😊 快乐
+                    <div class="desc">欢快明亮的旋律</div>
+                </button>
+                <button onclick="generateMusic('sad')" class="emotion-btn sad-btn">
+                    😢 悲伤
+                    <div class="desc">深沉忧郁的音调</div>
+                </button>
+                <button onclick="generateMusic('excited')" class="emotion-btn excited-btn">
+                    🎉 兴奋
+                    <div class="desc">激昂动感的节拍</div>
+                </button>
+                <button onclick="generateMusic('calm')" class="emotion-btn calm-btn">
+                    😌 平静
+                    <div class="desc">舒缓宁静的和声</div>
+                </button>
+            </div>
+
+            <div id="status" class="status">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>正在创作您的专属音乐，请稍候...</p>
+                </div>
+            </div>
+
+            <div id="result" class="result">
+                <div class="success-alert">
+                    <div class="success-content">
+                        <svg class="success-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <p id="result-message" class="message"></p>
+                    </div>
+                </div>
+                
+                <div class="audio-section">
+                    <h3 class="audio-title">🎧 您的专属音乐</h3>
+                    <audio id="audio-player" controls class="audio-player" preload="auto">
+                        您的浏览器不支持音频播放器。
+                    </audio>
+                    <p class="audio-tip">点击播放按钮开始聆听</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateMusic(emotion) {
+            // 显示加载状态
+            document.getElementById('status').classList.add('show');
+            document.getElementById('result').classList.remove('show');
+
+            // 发送请求
+            const formData = new FormData();
+            formData.append('emotion', emotion);
+
+            fetch('/generate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 隐藏加载状态
+                document.getElementById('status').classList.remove('show');
+                
+                if (data.success) {
+                    // 显示结果
+                    document.getElementById('result').classList.add('show');
+                    document.getElementById('result-message').textContent = data.message;
+                    
+                    // 更新音频播放器
+                    const audioPlayer = document.getElementById('audio-player');
+                    audioPlayer.src = data.file_path;
+                    audioPlayer.load(); // 重新加载音频
+                    
+                    // 自动播放（某些浏览器可能阻止自动播放）
+                    audioPlayer.play().catch(e => {
+                        console.log('自动播放被阻止，用户需要手动点击播放');
+                    });
+                } else {
+                    alert(data.error || '生成音乐时发生错误');
+                }
+            })
+            .catch(error => {
+                document.getElementById('status').classList.remove('show');
+                alert('生成音乐时发生错误');
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html> 
